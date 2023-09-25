@@ -5,11 +5,12 @@ public class JavaV1 {
         Scanner scanner = new Scanner(System.in);
 
         // Prompt the user for their name
-        System.out.print("Welcome to Who Wants to Be a Java Programmer?\nPlease enter your name: ");
+        System.out.print("Welcome to Who Wants to Be a Java Programmer? Press Enter to begin!");
         String playerName = scanner.nextLine();
-
+        System.out.println("Please enter your name here: ");
+        String name = scanner.nextLine();
+        System.out .println("Hello " +name);
         // Display the main menu
-        System.out.println("\nWelcome, " + playerName + "!");
         System.out.println("Main Menu:");
         System.out.println("1) See Rules");
         System.out.println("2) Play Game");
