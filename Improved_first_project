@@ -1,0 +1,100 @@
+import java.util.Scanner;
+
+public class JavaV1 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String playerName;
+
+        // Prompt the user for their name
+        System.out.print("Welcome to Who Wants to Be a Java Programmer? Press Enter to begin!");
+        scanner.nextLine();
+        System.out.print("Please enter your name: ");
+        playerName = scanner.nextLine();
+        System.out.println("Hello " + playerName);
+
+        // Display the main menu
+        while (true) {
+            System.out.println("\nMain Menu:");
+            System.out.println("1) See Rules");
+            System.out.println("2) Start Test");
+            System.out.println("3) Exit");
+
+            // Prompt the user to choose an option
+            System.out.print("Choose an option (1/2/3): ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            // Handle user's choice
+            switch (choice) {
+                case 1:
+                    // Display rules
+                    System.out.println("1. You will be tested on a set of 10 questions relating to Java.");
+                    System.out.println("2. After each question, you will receive points for each correct answer.");
+                    System.out.println("3. At the end of the test, you will receive a final score.");
+                    System.out.println("\nRules of the test:");
+                    System.out.println("1. You will be tested on a set of 3 multiple-choice questions relating to Java.");
+                    System.out.println("2. These questions relate to chapters 1 and 2");
+                    System.out.println("3. Have fun!");
+                    System.out.println("\nPress Enter to start the test...");
+                    scanner.nextLine(); // Wait for Enter key
+                    startTest(scanner, playerName);
+                    break;
+                case 2:
+                    startTest(scanner, playerName);
+                    break;
+                case 3:
+                    System.out.println("Thank you for playing. Goodbye, " + playerName + "!");
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please choose a valid option (1/2/3).");
+            }
+        }
+    }
+
+    private static void startTest(Scanner scanner, String playerName) {
+        int score = 0;
+
+        String[] questions = {
+            "What does JVM stand for?",
+            "What is the java source file extension?",
+            "What are comments used for?"
+        };
+
+        String[][] options = {
+            {"A) Java Virtual Machine", "B) Java Very Main", "C) Java Virtual Method", "D) Java Viable Memory"},
+            {"A) .javaexe", "B) .javas", "C) .java", "D) .exe"},
+            {"A) To tell the compiler what it needs to do", "B) To close a line of code", "C) To keep reminders and notes", "D) To define the scope of the class"}
+        };
+
+        char[] correctAnswers = {'A', 'C', 'C'};
+        char[] userAnswers = new char[questions.length];
+
+        for (int i = 0; i < questions.length; i++) {
+            boolean validAnswer = false;
+
+            do {
+                System.out.println("\nQuestion " + (i + 1) + ": " + questions[i]);
+                for (String option : options[i]) {
+                    System.out.println(option);
+                }
+                System.out.print("Your answer (A/B/C/D): ");
+                char userAnswer = scanner.next().toUpperCase().charAt(0);
+                scanner.nextLine();
+
+                userAnswers[i] = userAnswer;
+
+                if (userAnswer == 'A' || userAnswer == 'B' || userAnswer == 'C' || userAnswer == 'D') {
+                    validAnswer = true;
+                    score += (userAnswer == correctAnswers[i]) ? 1 : 0;
+                    System.out.println((userAnswer == correctAnswers[i]) ? "Correct! You earn 1 point." : "Incorrect.");
+                } else {
+                    System.out.println("Invalid answer. Please choose from (A/B/C/D).");
+                }
+            } while (!validAnswer);
+        }
+
+        System.out.println("\nThank you for playing, " + playerName + "!");
+        System.out.println("Your final score: " + score);
+    }
+}
