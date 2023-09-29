@@ -1,15 +1,55 @@
+// Display an Introduction to the Game.
+//Display "Welcome to Who wants to be a Java programmer"
+
+// Prompt the user for his/her name.
+//Prompt "Please enter your name here: "
+//Read users name
+
+// Display the main menu.
+//Display "Main Menu:"
+//Display "1) See Rules"
+//Display "2) Play Game"
+//Display "3) Exit"
+
+// Prompt the user for the main menu choice.
+//Prompt "Enter your choice (1/2/3): "
+//Read users choice
+
+// Regardless of user input:
+// Display the rules for the game in a message box.
+//If users choice is 1:
+    //Display "Game Rules:"
+    //Display "1. Rule 1..."
+    //Display "2. Rule 2..."
+    //Display "3. Rule 3..."
+
+// Display the 3 sets of questions and answers.
+//Display "Set 1:"
+//Display "Question 1: ..."
+//Display "Option A: ..."
+//Display "Option B: ..."
+//Display "Option C: ..."
+//Prompt "Your answer (A/B/C): "
+
 import java.util.Scanner;
 
 public class JavaV1 {
-    public static void main(String[] args) {
+    private static int score;
+	private static char userAnswer1;
+	private static char userAnswer2;
+	private static char userAnswer3;
+	private static char userAnswer22;
+
+	public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String name;
-
+        // show player the title
         System.out.println("Welcome to Who Wants to Be a Java Programmer?");
+        // have player enter name
         System.out.print("Please enter your name: ");
         name = scanner.nextLine();
         System.out.println("Hello " + name);
-
+        // print main menu
         System.out.println("\nMain Menu:");
         System.out.println("1) See Rules");
         System.out.println("2) Start Test");
@@ -17,7 +57,7 @@ public class JavaV1 {
         System.out.print("Choose an option (1/2/3): ");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline
-
+        //print rules of class and have player use enter key to enter test
         switch (choice) {
             case 1:
                 System.out.println("\nRules of the test:");
@@ -42,7 +82,7 @@ public class JavaV1 {
     }
 
     private static void startTest(Scanner scanner, String name) {
-        int score = 0;
+        score = 0;
 
         // Question 1
         System.out.println("\nQuestion 1: What does JVM stand for?");
@@ -51,7 +91,7 @@ public class JavaV1 {
         System.out.println("C)Java Virtual Method");
         System.out.println("D)Java Viable Memory");
         System.out.print("Your answer (A/B/C/D): ");
-        char userAnswer1 = scanner.next().toUpperCase().charAt(0);
+        userAnswer1 = scanner.next().toUpperCase().charAt(0);
         scanner.nextLine();
 
         // Question 2
@@ -61,7 +101,7 @@ public class JavaV1 {
         System.out.println("C).java");
         System.out.println("D).exe");
         System.out.print("Your answer (A/B/C/D): ");
-        char userAnswer2 = scanner.next().toUpperCase().charAt(0);
+        userAnswer22 = scanner.next().toUpperCase().charAt(0);
         scanner.nextLine();
         
         // Question 3
@@ -71,7 +111,7 @@ public class JavaV1 {
         System.out.println("C)To keep reminders and notes");
         System.out.println("D)To define the scope of the class");
         System.out.print("Your answer (A/B/C/D): ");
-        char userAnswer3 = scanner.next().toUpperCase().charAt(0);
+        userAnswer3 = scanner.next().toUpperCase().charAt(0);
         scanner.nextLine();
 
         System.out.println("\nThank you for playing, " + name + "!");
