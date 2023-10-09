@@ -96,28 +96,7 @@ public class JavaV1 {
 
         System.out.println("\nThank you for playing, " + name + "!");
 
-        // Question 4
-        System.out.println("\nQuestion 4: The else statement means what? ");
-        System.out.println("A) It means the boolean statement is true");
-        System.out.println("B) That your code has an error");
-        System.out.println("C) An alternative statement ");
-        System.out.println("D) You have more options to choose ");
-        System.out.print("Your answer (A/B/C/D): ");
-        userAnswer4 = scanner.next().toUpperCase().charAt(0);
-
-        
-        // Question 5
-        System.out.println("\nQuestion 5: Which is an example of a Logical Operator? ");
-        System.out.println("A)!");
-        System.out.println("B)>");
-        System.out.println("C)||");
-        System.out.println("D) All of the above");
-        System.out.print("Your answer (A/B/C/D): ");
-        userAnswer5 = scanner.next().toUpperCase().charAt(0);
-
-        }
-
         scanner.close();
     }
-
+}
 }
