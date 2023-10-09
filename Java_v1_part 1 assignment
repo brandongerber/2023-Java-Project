@@ -1,0 +1,39 @@
+Welcome to Who Wants to Be a Java Programmer?
+Please enter your name: John
+Hello John
+
+Main Menu:
+1) See Rules
+2) Start Test
+3) Exit
+Choose an option (1/2/3): 1
+
+Rules of the test:
+1. You will be tested on a set of 3 multiple-choice questions relating to Java.
+2. These questions relate to chapters 1 and 2.
+3. Have fun!
+
+Press Enter to start the test...
+
+Question 1: What does JVM stand for?
+A) Java Virtual Machine
+B) Java Very Main
+C) Java Virtual Method
+D) Java Viable Memory
+Your answer (A/B/C/D): A
+
+Question 2: What is the java source file extension?
+A) .javaexe
+B) .javas
+C) .java
+D) .exe
+Your answer (A/B/C/D): C
+
+Question 3: What are comments used for?
+A) To tell the compiler what it needs to do
+B) To close a line of code
+C) To keep reminders and notes
+D) To define the scope of the class
+Your answer (A/B/C/D): C
+
+Thank you for playing, John!
