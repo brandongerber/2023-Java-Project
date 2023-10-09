@@ -1,0 +1,52 @@
+import javax.swing.JOptionPane;
+
+public class JavaV1 {
+    public static void main(String[] args) {
+        String name = JOptionPane.showInputDialog("Welcome to Who Wants to Be a Java Programmer?\nPlease enter your name:");
+        JOptionPane.showMessageDialog(null, "Hello, " + name + "!");
+
+        String[] options = {"See Rules", "Play Game", "Exit"};
+        int choice = JOptionPane.showOptionDialog(null, "Main Menu:", "Who Wants to Be a Java Programmer?",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+        switch (choice) {
+            case 0:
+                JOptionPane.showMessageDialog(null,
+                        "Game Rules:\n1. You will be tested on a set of 3 multiple-choice questions relating to Java.\n2. These questions relate to chapters 1 and 2.\n3. Have fun!\n\nPress OK to start the test...");
+                startTest(name);
+                break;
+            case 1:
+                startTest(name);
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "Thank you for playing. Goodbye, " + name + "!");
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Invalid choice. Please choose a valid option (1/2/3).");
+        }
+    }
+
+    private static void startTest(String name) {
+        int score = 0;
+        String[] options = {"A", "B", "C", "D"};
+
+        String userAnswer1 = (String) JOptionPane.showInputDialog(null,
+                "Question 1: What does JVM stand for?\nA) Java Virtual Machine\nB) Java Very Main\nC) Java Virtual Method\nD) Java Viable Memory",
+                "Question 1", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        String userAnswer2 = (String) JOptionPane.showInputDialog(null,
+                "Question 2: What is the java source file extension?\nA) .javaexe\nB) .javas\nC) .java\nD) .exe",
+                "Question 2", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        String userAnswer3 = (String) JOptionPane.showInputDialog(null,
+                "Question 3: What are comments used for?\nA) To tell the compiler what it needs to do\nB) To close a line of code\nC) To keep reminders and notes\nD) To define the scope of the class",
+                "Question 3", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        // Check answers and calculate score
+        if ("A".equals(userAnswer1)) score++;
+        if ("C".equals(userAnswer2)) score++;
+        if ("C".equals(userAnswer3)) score++;
+
+        JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!\nYour score: " + score + "/3");
+    }
+}
