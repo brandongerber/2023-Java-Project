@@ -1,0 +1,44 @@
+import javax.swing.JOptionPane;
+
+public class Game {
+    public static void main(String[] args) {
+        // Prompting the user for their name using JOptionPane
+        String name = JOptionPane.showInputDialog("Please enter your name:");
+        
+        // Displaying the main menu with the user's name using JOptionPane
+        String input = JOptionPane.showInputDialog(
+                "Hello " + name + "! Please choose from the following menu:\n" +
+                "1) See Rules\n" +
+                "2) Play Game\n" +
+                "3) Exit");
+
+        int choice;
+        // Input validation using a do-while loop
+        try {
+            choice = Integer.parseInt(input);
+            while (choice < 1 || choice > 3) {
+                input = JOptionPane.showInputDialog("Invalid choice. Please enter a number between 1 and 3:");
+                choice = Integer.parseInt(input);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a number.");
+            return;
+        }
+
+        // Using switch-case for decision-making
+        switch (choice) {
+            case 1:
+                JOptionPane.showMessageDialog(null, "Displaying Rules...");
+                // Code for displaying rules goes here
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "Starting the Game...");
+                // Code for starting the game goes here
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "THANKS FOR PLAYING! HAVE A NICE DAY!");
+                // Code for game exit goes here
+                break;
+        }
+    }
+}
