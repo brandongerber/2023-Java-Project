@@ -4,13 +4,13 @@ public class Game {
     public static void main(String[] args) {
         // Prompting the user for their name using JOptionPane
         String name = JOptionPane.showInputDialog("Please enter your name:");
-        
+
         // Displaying the main menu with the user's name using JOptionPane
         String input = JOptionPane.showInputDialog(
                 "Hello " + name + "! Please choose from the following menu:\n" +
-                "1) See Rules\n" +
-                "2) Play Game\n" +
-                "3) Exit");
+                        "1) See Rules\n" +
+                        "2) Play Game\n" +
+                        "3) Exit");
 
         int choice;
         // Input validation using a do-while loop
@@ -25,20 +25,73 @@ public class Game {
             return;
         }
 
-        // Using switch-case for decision-making
         switch (choice) {
             case 1:
-                JOptionPane.showMessageDialog(null, "Displaying Rules...");
-                // Code for displaying rules goes here
-                break;
+                String rulesMessage = "You have chosen to see the rules.\n"
+                        + "You will be given a set of 5 questions about Java.\n"
+                        + "If you answer correctly, points will be added to your score.\n"
+                        + "Have fun!";
+                JOptionPane.showMessageDialog(null, rulesMessage, "Java Quiz Rules", JOptionPane.INFORMATION_MESSAGE);
+                // Allow the code to continue to the game
             case 2:
-                JOptionPane.showMessageDialog(null, "Starting the Game...");
-                // Code for starting the game goes here
+                int score = 0;
+                for (int i = 0; i < 5; i++) {
+                    String answer = JOptionPane.showInputDialog("Question " + (i + 1) + ":\n"
+                            + getQuestion(i + 1) + "\n"
+                            + "Your Answer:");
+                    if (answer != null && answer.equalsIgnoreCase(getCorrectAnswer(i + 1))) {
+                        score++;
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "Your score: " + score + " out of 5", "Quiz Result", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case 3:
                 JOptionPane.showMessageDialog(null, "THANKS FOR PLAYING! HAVE A NICE DAY!");
-                // Code for game exit goes here
                 break;
+        }
+    }
+
+    // Helper method to get questions based on question number
+    private static String getQuestion(int questionNumber) {
+        switch (questionNumber) {
+            case 1:
+                return "A(n) __________ is a set of well-defined steps for performing a task or solving a problem.\n"
+                        + "A) algorithm\nB) Tар\nC) staircase\nD) puzzle";
+            case 2:
+                return "Which statement is NOT true?\n"
+                        + "A) Machine languages can be used to express algorithms\n"
+                        + "B) Machine language is produced by compilers\n"
+                        + "C) Machine language consists of zeros and ones\n"
+                        + "D) Machine languages can be used to write programs that can run on any machine";
+            case 3:
+                return "The rules that govern the correct order and usage of the elements of a language are called the ___________ of the language.\n"
+                        + "A) format\nB) method\nC) Form\nD) syntax";
+            case 4:
+                return "Which Java keyword is used to implement a decision structure that allows you to execute a block of code only if a certain condition is true?\n"
+                        + "A) switch\nB) if\nC) while\nD) for";
+            case 5:
+                return "Which Java construct is used to make decisions in a program?\n"
+                        + "A) loop\nB) variable\nC) decision structure\nD) method";
+            default:
+                return "";
+        }
+    }
+
+    // Helper method to get correct answers based on question number
+    private static String getCorrectAnswer(int questionNumber) {
+        switch (questionNumber) {
+            case 1:
+                return "A";
+            case 2:
+                return "B";
+            case 3:
+                return "D";
+            case 4:
+                return "B";
+            case 5:
+                return "C";
+            default:
+                return "";
         }
     }
 }
