@@ -1,120 +1,125 @@
-// Display an Introduction to the Game.
-//Display "Welcome to Who wants to be a Java programmer"
-
-// Prompt the user for his/her name.
-//Prompt "Please enter your name here: "
-//Read users name
-
-// Display the main menu.
-//Display "Main Menu:"
-//Display "1) See Rules"
-//Display "2) Play Game"
-//Display "3) Exit"
-
-// Prompt the user for the main menu choice.
-//Prompt "Enter your choice (1/2/3): "
-//Read users choice
-
-// Regardless of user input:
-// Display the rules for the game in a message box.
-//If users choice is 1:
-    //Display "Game Rules:"
-    //Display "1. Rule 1..."
-    //Display "2. Rule 2..."
-    //Display "3. Rule 3..."
-
-// Display the 3 sets of questions and answers.
-//Display "Set 1:"
-//Display "Question 1: ..."
-//Display "Option A: ..."
-//Display "Option B: ..."
-//Display "Option C: ..."
-//Prompt "Your answer (A/B/C): "
-
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class JavaV1 {
     private static int score;
-	private static char userAnswer1;
-	private static char userAnswer2;
-	private static char userAnswer3;
-	private static char userAnswer22;
 
-	public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String name;
-        // show player the title
-        System.out.println("Welcome to Who Wants to Be a Java Programmer?");
-        // have player enter name
-        System.out.print("Please enter your name: ");
-        name = scanner.nextLine();
-        System.out.println("Hello " + name);
-        // print main menu
-        System.out.println("\nMain Menu:");
-        System.out.println("1) See Rules");
-        System.out.println("2) Start Test");
-        System.out.println("3) Exit");
-        System.out.print("Choose an option (1/2/3): ");
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-        //print rules of class and have player use enter key to enter test
-        switch (choice) {
-            case 1:
-                System.out.println("\nRules of the test:");
-                System.out.println("1. You will be tested on a set of 3 multiple-choice questions relating to Java.");
-                System.out.println("2. These questions relate to chapters 1 and 2");
-                System.out.println("3. Have fun!");
-                System.out.println("\nPress Enter to start the test...");
-                scanner.nextLine(); // Wait for Enter key
-                startTest(scanner, name);
-                break;
-            case 2:
-                startTest(scanner, name);
-                break;
-            case 3:
-                System.out.println("Thank you for playing. Goodbye, " + name + "!");
-                break;
-            default:
-                System.out.println("Invalid choice. Please choose a valid option (1/2/3).");
+    public static void main(String[] args) {
+        JOptionPane.showMessageDialog(null, "Welcome to Who Wants to Be a Java Programmer?", "Welcome", JOptionPane.PLAIN_MESSAGE);
+        String name = JOptionPane.showInputDialog("Please enter your name:");
+
+        JOptionPane.showMessageDialog(null, "Hello, " + name + "!", "Greeting", JOptionPane.PLAIN_MESSAGE);
+
+        while (true) {
+            Object[] options = {"See Rules", "Start Test", "Exit"};
+            int choice = JOptionPane.showOptionDialog(null, "Main Menu:", "Menu",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null, options, options[2]);
+
+            switch (choice) {
+                case 0:
+                    JOptionPane.showMessageDialog(null, "Rules of the test:\n" +
+                            "1. You will be tested on a set of 5 multiple-choice questions relating to Java.\n" +
+                            "2. These questions relate to chapters one, two, and three.\n" +
+                            "3. Have fun!", "Rules", JOptionPane.INFORMATION_MESSAGE);
+                    startTest(name);
+                    break;
+                case 1:
+                    startTest(name);
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "Thank you for playing. Goodbye, " + name + "!",
+                            "Goodbye", JOptionPane.PLAIN_MESSAGE);
+                    System.exit(0);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Invalid choice. Please choose a valid option (1/2/3).",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-
-        scanner.close();
     }
 
-    private static void startTest(Scanner scanner, String name) {
+    private static void startTest(String name) {
         score = 0;
 
         // Question 1
-        System.out.println("\nQuestion 1: What does JVM stand for?");
-        System.out.println("A)Java Virtual Machine");
-        System.out.println("B)Java Very Main");
-        System.out.println("C)Java Virtual Method");
-        System.out.println("D)Java Viable Memory");
-        System.out.print("Your answer (A/B/C/D): ");
-        userAnswer1 = scanner.next().toUpperCase().charAt(0);
-        scanner.nextLine();
+        String answer1 = JOptionPane.showInputDialog("Question 1: What does JVM stand for?\n" +
+                "A) Java Virtual Machine\n" +
+                "B) Java Very Main\n" +
+                "C) Java Virtual Method\n" +
+                "D) Java Viable Memory\n" +
+                "Your answer (A/B/C/D): ").toUpperCase();
+
+        if (answer1.equals("A")) {
+            score += 1; // Assign point value for Question 1
+            JOptionPane.showMessageDialog(null, "Correct! You gained 1 point. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is A. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+        }
 
         // Question 2
-        System.out.println("\nQuestion 2:What is the java source file extension?");
-        System.out.println("A).javaexe");
-        System.out.println("B).javas");
-        System.out.println("C).java");
-        System.out.println("D).exe");
-        System.out.print("Your answer (A/B/C/D): ");
-        userAnswer22 = scanner.next().toUpperCase().charAt(0);
-        scanner.nextLine();
-        
-        // Question 3
-        System.out.println("\nQuestion 3: What are comments used for?");
-        System.out.println("A)To tell the compiler what it needs to do");
-        System.out.println("B)To close a line of code");
-        System.out.println("C)To keep reminders and notes");
-        System.out.println("D)To define the scope of the class");
-        System.out.print("Your answer (A/B/C/D): ");
-        userAnswer3 = scanner.next().toUpperCase().charAt(0);
-        scanner.nextLine();
+        String answer2 = JOptionPane.showInputDialog("Question 2: What is the java source file extension?\n" +
+                "A) .javaexe\n" +
+                "B) .javas\n" +
+                "C) .java\n" +
+                "D) .exe\n" +
+                "Your answer (A/B/C/D): ").toUpperCase();
 
-        System.out.println("\nThank you for playing, " + name + "!");
-     
+        if (answer2.equals("C")) {
+            score += 1; // Assign point value for Question 2
+            JOptionPane.showMessageDialog(null, "Correct! You gained 1 point. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is C. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Question 3
+        String answer3 = JOptionPane.showInputDialog("Question 3: What are comments used for?\n" +
+                "A) To tell the compiler what it needs to do\n" +
+                "B) To close a line of code\n" +
+                "C) To keep reminders and notes\n" +
+                "D) To define the scope of the class\n" +
+                "Your answer (A/B/C/D): ").toUpperCase();
+
+        if (answer3.equals("C")) {
+            score += 1; // Assign point value for Question 3
+            JOptionPane.showMessageDialog(null, "Correct! You gained 1 point. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is C. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Question 4
+        String answer4 = JOptionPane.showInputDialog("Question 4: The else statement means what? \n" +
+                "A) It means the boolean statement is true\n" +
+                "B) That your code has an error\n" +
+                "C) An alternative statement \n" +
+                "D) You have more options to choose \n" +
+                "Your answer (A/B/C/D): ").toUpperCase();
+
+        if (answer4.equals("C")) {
+            score += 1; // Assign point value for Question 4
+            JOptionPane.showMessageDialog(null, "Correct! You gained 1 point. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is C. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Question 5
+        String answer5 = JOptionPane.showInputDialog("Question 5: Which is an example of a Logical Operator? \n" +
+                "A) !\n" +
+                "B) >\n" +
+                "C) ||\n" +
+                "D) All of the above\n" +
+                "Your answer (A/B/C/D): ").toUpperCase();
+
+        if (answer5.equals("D")) {
+            score += 1; // Assign point value for Question 5
+            JOptionPane.showMessageDialog(null, "Correct! You gained 1 point. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is D. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+        }
+
+        JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!\nYour total score is: " + score,
+                "Test Results", JOptionPane.INFORMATION_MESSAGE);
+
+        // Add a "Thank you for playing" message at the end of the test
+        JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!", "Test Completed", JOptionPane.PLAIN_MESSAGE);
     }
 }
