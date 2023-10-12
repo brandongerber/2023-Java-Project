@@ -119,7 +119,7 @@ public class JavaV1 {
         JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!\nYour total score is: " + score,
                 "Test Results", JOptionPane.INFORMATION_MESSAGE);
 
-        // Add a "Thank you for playing" message at the end of the test
+        // "Thank you for playing" message at the end of the test
         JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!", "Test Completed", JOptionPane.PLAIN_MESSAGE);
     }
 }
