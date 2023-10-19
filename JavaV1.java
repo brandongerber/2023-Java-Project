@@ -22,7 +22,7 @@
  */
 import javax.swing.JOptionPane;
 
-public class JavaV3 {
+public class JavaV2 {
     private static int score;
 
     public static void main(String[] args) {
