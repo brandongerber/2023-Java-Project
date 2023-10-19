@@ -1,6 +1,28 @@
+/*
+ Who Wants To Be A Programmer Algorithim
+ Declared Vaiables score, userAnswer1-5, userAnswer22
+ Variable types: int, char
+ 1. Display Prompt
+ 2. Enter Name
+ 3. Greeting
+ 4. Menu
+ - Display
+ - Start Game
+ - Exit
+ * (Rules Display)
+ - Leads back to Start of game
+ * (Start Game)
+ - Question 1
+ - Question 2
+ - Question 3
+ - Question 4
+ - Question 5
+ * (Exit)
+ - Display Exit Prompt
+ */
 import javax.swing.JOptionPane;
 
-public class JavaV1 {
+public class JavaV3 {
     private static int score;
 
     public static void main(String[] args) {
