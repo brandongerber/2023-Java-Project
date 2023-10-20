@@ -1,0 +1,75 @@
+/*
+Who Wants To Be A Programmer Algorithm
+
+Declared Variables: score, userAnswer1-5, userAnswer22
+Variable Types: int, char
+
+- Start
+- Display Welcome Message: "Welcome to Who Wants to Be a Programmer Game!"
+- Enter Name
+- Display personalized greeting using the entered name
+- Loop indefinitely for the game menu
+    - Display Menu options: "Display Rules", "Start Game", "Exit"
+    - Prompt user to choose an option
+    - If user chooses to display rules
+        - Display Rules of the game
+        - Continue to the next iteration of the loop
+    - If user chooses to start the game
+        - Initialize score to 0
+        - Ask Question 1 and get user's answer
+            - If the answer is correct, increment score
+        - Ask Question 2 and get user's answer
+            - If the answer is correct, increment score
+        - Ask Question 3 and get user's answer
+            - If the answer is correct, increment score
+        - Ask Question 4 and get user's answer
+            - If the answer is correct, increment score
+        - Ask Question 5 and get user's answer
+            - If the answer is correct, increment score
+        - Display the final score
+        - Continue to the next iteration of the loop
+    - If user chooses to exit
+        - Display Exit Prompt: "Thank you for playing! Goodbye!"
+        - Exit the game
+    - If user chooses an invalid option:
+        - Display Error Message: "Invalid choice. Please choose a valid option."
+        - Continue to the next iteration of the loop
+- End loop
+*/
+import javax.swing.JOptionPane;
+
+public class JavaV2 {
+
+    public static void main(String[] args) {
+        JOptionPane.showMessageDialog(null, "Welcome to Who Wants to Be a Java Programmer?", "Welcome", JOptionPane.PLAIN_MESSAGE);
+        String name = JOptionPane.showInputDialog("Please enter your name:");
+        JOptionPane.showMessageDialog(null, "Hello, " + name + "!", "Introduction", JOptionPane.PLAIN_MESSAGE);
+
+        int score = 0;
+        
+        // Question 1
+        String userAnswer1 = JOptionPane.showInputDialog("What does JVM stand for?\nA) Java Virtual Machine\nB) Java Very Main\nC) Java Virtual Method\nD) Java Viable Memory\nYour answer (A/B/C/D): ").toUpperCase();
+        score += userAnswer1.equalsIgnoreCase("A") ? 1 : 0;
+
+        // Question 2
+        String userAnswer2 = JOptionPane.showInputDialog("What is the java source file extension?\nA) .java\nB) .class\nC) .jav\nD) .src\nYour answer (A/B/C/D): ").toUpperCase();
+        score += userAnswer2.equalsIgnoreCase("A") ? 1 : 0;
+
+        // Question 3
+        String userAnswer3 = JOptionPane.showInputDialog("What are comments used for?\nA) Improve performance\nB) Add functionality\nC) Document code\nD) Create errors\nYour answer (A/B/C/D): ").toUpperCase();
+        score += userAnswer3.equalsIgnoreCase("C") ? 1 : 0;
+
+        // Question 4
+        String userAnswer4 = JOptionPane.showInputDialog("The else statement means what?\nA) Always executed\nB) Never executed\nC) Executed if the preceding if statement is false\nD) Executed if the preceding if statement is true\nYour answer (A/B/C/D): ").toUpperCase();
+        score += userAnswer4.equalsIgnoreCase("C") ? 1 : 0;
+
+        // Question 5
+        String userAnswer5 = JOptionPane.showInputDialog("Which is an example of a Logical Operator?\nA) & (Bitwise AND)\nB) ! (Logical NOT)\nC) && (Conditional AND)\nD) + (Addition)\nYour answer (A/B/C/D): ").toUpperCase();
+        score += userAnswer5.equalsIgnoreCase("C") ? 1 : 0;
+
+        JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!\nYour total score is: " + score,
+                "Test Results", JOptionPane.INFORMATION_MESSAGE);
+
+        JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!", "Test Completed", JOptionPane.PLAIN_MESSAGE);
+    }
+}
