@@ -5,36 +5,17 @@ Declared Variables: score, userAnswer1-5, userAnswer22
 Variable Types: int, char
 
 - Start
-- Display Welcome Message: "Welcome to Who Wants to Be a Programmer Game!"
-- Enter Name
-- Display personalized greeting using the entered name
-- Loop indefinitely for the game menu
-    - Display Menu options: "Display Rules", "Start Game", "Exit"
-    - Prompt user to choose an option
-    - If user chooses to display rules
-        - Display Rules of the game
-        - Continue to the next iteration of the loop
-    - If user chooses to start the game
-        - Initialize score to 0
-        - Ask Question 1 and get user's answer
-            - If the answer is correct, increment score
-        - Ask Question 2 and get user's answer
-            - If the answer is correct, increment score
-        - Ask Question 3 and get user's answer
-            - If the answer is correct, increment score
-        - Ask Question 4 and get user's answer
-            - If the answer is correct, increment score
-        - Ask Question 5 and get user's answer
-            - If the answer is correct, increment score
-        - Display the final score
-        - Continue to the next iteration of the loop
-    - If user chooses to exit
-        - Display Exit Prompt: "Thank you for playing! Goodbye!"
-        - Exit the game
-    - If user chooses an invalid option:
-        - Display Error Message: "Invalid choice. Please choose a valid option."
-        - Continue to the next iteration of the loop
-- End loop
+Pseudocode:
+- Display welcome message
+- Prompt user for name
+- Ask Question 1
+- Ask Question 2
+- Ask Question 3
+- Ask Question 4
+- Ask Question 5
+- Calculate score
+- Display final score and thank the player
+-End
 */
 import javax.swing.JOptionPane;
 
