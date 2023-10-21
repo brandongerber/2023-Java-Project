@@ -1,7 +1,57 @@
-// we just need to add the pseudocode
+// Display "Welcome to Who Wants to Be a Java Programmer?" 
+
+/* Prompt the user to enter their name
+name = Input from the user
+
+Display "Hello, and the users name
+
+Create an set of different options: {"See Rules", "Start Test", "Exit"}
+
+Display a menu with options:
+choice = Select an option from the menu
+
+If choice is equal to 0:
+    Display "Rules of the test:" with "Rules" title
+    Display "1. You will be tested on a set of 5 multiple-choice questions relating to Java."
+    Display "2. These questions relate to chapters one, two, and three."
+    Display "3. Have fun!"
+    Call startTest(name)
+
+Else:
+if choice is equal to 1:
+    startTest
+
+Else: 
+if choice is equal to 2:
+
+    Display "Thank you for playing. Goodbye, and the name they have entered!"
+     and then Exit the program
+
+Else:
+    Display "Invalid choice. Please choose a valid option (1/2/3)." with "Error" title
+
+Function startTest(name):
+    Initialize score to 0
+
+    Ask a question: "What does JVM stand for?"
+    answer1 = Input from the user
+
+    If answer1 is equal to "A":
+        Increment score by 1
+        Display "Correct! You gained 1 point. Your current score: score" with "Result" title
+    Else:
+        Display "Incorrect. The correct answer is A. Your current score: score" with "Result" title
+
+    For questions 2-5 our above work stays the same, prompting the user to answer, if it is correct the score goes up by one
+
+    Display "Thank you for playing, name!"
+    Display "Your total score is: score" 
+   */ 
+ // Display "Thank you for playing, name!" with "Test Completed" title
+   
 import javax.swing.JOptionPane;
 
-public class JavaV2 {
+public class JavaV1 {
     private static int score;
 
     public static void main(String[] args) {
@@ -111,11 +161,8 @@ public class JavaV2 {
             JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is D. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
         }
 
-        // added a total score at the end of the test
+        // added a total score at the end of the test and removed the last part 
         JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!\nYour total score is: " + score,
                 "Test Results", JOptionPane.INFORMATION_MESSAGE);
-
-        // Added a "Thank you for playing" message at the end of the test
-        JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!", "Test Completed", JOptionPane.PLAIN_MESSAGE);
     }
 }
