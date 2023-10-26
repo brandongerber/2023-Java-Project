@@ -2,7 +2,7 @@
  /*
  Who Wants To Be A Programmer Algorithim
  Declared Vaiables score, userAnswer1-5, userAnswer22
- Variable types: int, char
+ Variable types: int, char, boolean
  1. Display Prompt
  2. Enter Name
  3. Greeting
@@ -20,6 +20,7 @@
  - Question 5
  -Question 6
  - Question 7
+ - If user wants to play again, user clicks yes or no
  * (Exit)
  - Display Exit Prompt
  */
@@ -56,10 +57,10 @@ public class JavaV3 {
                                 "3. Have fun!", "Rules", JOptionPane.INFORMATION_MESSAGE);
 
                         Object[] startTestOptions = {"Start Test", "Back to Main Menu"};
-                        int startTestChoice = JOptionPane.showOptionDialog(null, "Do you want to start the test now?", "Start Test", 
+                        int startTestChoice = JOptionPane.showOptionDialog(null, "Do you want to start the test now?", "Start Test",
                                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                                 null, startTestOptions, startTestOptions[0]);
-                        
+
                         if (startTestChoice == 0) {
                             validChoice = true;
                             startTest(name);
@@ -114,8 +115,8 @@ public class JavaV3 {
                 "D) All of the above\n" +
                 "Your answer (A/B/C/D): ").toUpperCase();
         if (answer6.equals("C")) {
-            score += 1; // Assigned a point value for Question 6
-            JOptionPane.showMessageDialog(null, "Correct! You gained 1 point. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+            score += 10; // Assigned a point value of 10 for Question 6
+            JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is C. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
         }
@@ -128,8 +129,8 @@ public class JavaV3 {
                 "D) All of the above\n" +
                 "Your answer (A/B/C/D): ").toUpperCase();
         if (answer7.equals("A")) {
-            score += 1; // Assigned a point value for Question 7
-            JOptionPane.showMessageDialog(null, "Correct! You gained 1 point. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+            score += 10; // Assigned a point value of 10 for Question 7
+            JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is A. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
         }
@@ -145,8 +146,8 @@ public class JavaV3 {
         } while (!userAnswer.equals("A") && !userAnswer.equals("B") && !userAnswer.equals("C") && !userAnswer.equals("D"));
 
         if (userAnswer.equals(correctAnswer)) {
-            currentScore++;
-            JOptionPane.showMessageDialog(null, "Correct! You gained 1 point. Your current score: " + currentScore, "Result", JOptionPane.INFORMATION_MESSAGE);
+            currentScore += 10;
+            JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + currentScore, "Result", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is " + correctAnswer + ". Your current score: " + currentScore, "Result", JOptionPane.ERROR_MESSAGE);
         }
@@ -154,3 +155,6 @@ public class JavaV3 {
         return currentScore;
     }
 }
+
+
+
