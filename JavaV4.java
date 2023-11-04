@@ -1,13 +1,21 @@
+
 import javax.swing.JOptionPane;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class JavaV4 {
     private static int score;
+    private static int highScore;
+
 
     public static void main(String[] args) {
+        createHighScoreFile();
+        loadHighScore();
+
+
         JOptionPane.showMessageDialog(null, "Welcome to Who Wants to Be a Java Programmer?", "Welcome", JOptionPane.PLAIN_MESSAGE);
         String name = JOptionPane.showInputDialog("Please enter your name:");
 
@@ -46,7 +54,23 @@ public class JavaV4 {
             if (playAgainChoice.equals("yes")) {
                 playAgain = true;
             }
+            if (score > highScore) {
+                highScore = score;
+                updateHighScore();
+                JOptionPane.showMessageDialog(null, "Congratulations, you've set a new high score! Your score: " + score, "High Score", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Thank you for playing. Your score: " + score + "\nHigh score: " + highScore, "Test Results", JOptionPane.INFORMATION_MESSAGE);
+            }
         } while (playAgain);
+    }
+    private static void createHighScoreFile() {
+        try {
+            FileWriter writer = new FileWriter("highscore.txt");
+            writer.write("0");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void startTest(String name) {
@@ -83,7 +107,7 @@ public class JavaV4 {
     private static ArrayList<QuestionData> readQuestionsFromFile(String filename) {
         ArrayList<QuestionData> questions = new ArrayList<>();
         QuestionData currentQuestion = null;
-
+    
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -93,7 +117,12 @@ public class JavaV4 {
                     }
                     currentQuestion = new QuestionData(line.substring(1));
                 } else if (currentQuestion != null) {
-                    currentQuestion.addOption(line);
+                    // Check if the line is a correct answer (A, B, C, D)
+                    if (line.trim().matches("[A-Da-d]")) {
+                        currentQuestion.correctAnswer = line.toUpperCase();
+                    } else {
+                        currentQuestion.addOption(line);
+                    }
                 }
             }
             if (currentQuestion != null) {
@@ -102,8 +131,27 @@ public class JavaV4 {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    
         return questions;
+    }
+    
+    private static void loadHighScore() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("highscore.txt"))) {
+            String line = reader.readLine();
+            if (line != null) {
+                highScore = Integer.parseInt(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void updateHighScore() {
+        try (FileWriter writer = new FileWriter("highscore.txt")) {
+            writer.write(Integer.toString(highScore));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static class QuestionData {
@@ -132,5 +180,4 @@ public class JavaV4 {
                 "2. Have fun!", "Rules", JOptionPane.INFORMATION_MESSAGE);
     }
 }
-
 

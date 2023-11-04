@@ -1,48 +1,62 @@
+What does JVM stand for?
 #1. What does JVM stand for?
 A) Java Virtual Machine
 B) Java Very Main
 C) Java Virtual Method
 D) Java Viable Memory
 A
+10
 
+What is the java source file extension?
 #2. What is the java source file extension?
 A) .javaexe
 B) .javas
 C) .java
 D) .exe
 C
+10
 
+What are comments used for?
 #3. What are comments used for?
 A) To tell the compiler what it needs to do
 B) To close a line of code
 C) To keep reminders and notes
 D) To define the scope of the class
 C
+10
 
+The else statement means what?
 #4. The else statement means what?
 A) It means the boolean statement is true
 B) That your code has an error
 C) An alternative statement
 D) You have more options to choose
 C
+10
 
+Which is an example of a Logical Operator?
 #5. Which is an example of a Logical Operator?
 A) !
 B) >
 C) ||
 D) All of the above
 D
+10
 
+A loop that repeats a specific number of times is known as a?
 #6. A loop that repeats a specific number of times is known as a ? 
 A) if/then loop
 B) do-while loop
 C) count-controlled loop
 D) All of the above
 C
+10
 
+To increment a number which symbol do you use?
 #7. To increment a number which symbol do you use? 
 A) ++
 B) xx
 C) --
 D) All of the above
 A
+10
