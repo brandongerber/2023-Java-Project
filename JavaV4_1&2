@@ -19,7 +19,7 @@ public class JavaV4 {
             ArrayList<String> questions = new ArrayList<>();
             ArrayList<String[]> answers = new ArrayList<>();
             ArrayList<String> correctAnswers = new ArrayList<>();
-            ArrayList<Integer> pointValues = new ArrayList<>();
+            ArrayList<String> pointValues = new ArrayList<>();
 
             // Read questions from the file
             try (BufferedReader br = new BufferedReader(new FileReader("questions.txt"))) {
@@ -32,11 +32,14 @@ public class JavaV4 {
                     }
                     answers.add(ans);
                     correctAnswers.add(br.readLine());
-                    pointValues.add(Integer.parseInt(br.readLine()));
+                    pointValues.add(br.readLine());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error reading questions from the file.", "Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
             }
+            
 
             int choice = showMainMenu();
 
@@ -96,14 +99,23 @@ public class JavaV4 {
                 "3. Have fun!", "Rules", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private static void startTest(String name, ArrayList<String> questions, ArrayList<String[]> answers, ArrayList<String> correctAnswers, ArrayList<Integer> pointValues) {
+    private static void startTest(String name, ArrayList<String> questions, ArrayList<String[]> answers, ArrayList<String> correctAnswers, ArrayList<String> pointValues) {
         score = 0;
 
         for (int i = 0; i < questions.size(); i++) {
             String question = questions.get(i);
-            String options = "A) " + answers.get(i)[0] + "\nB) " + answers.get(i)[1] + "\nC) " + answers.get(i)[2] + "\nD) " + answers.get(i)[3];
+            String options = "" + answers.get(i)[0] + "\n" + answers.get(i)[1] + "\n" + answers.get(i)[2] + "\n" + answers.get(i)[3];
             String correctAnswer = correctAnswers.get(i);
-            int pointValue = pointValues.get(i);
+            
+            // Parse point value as integer (assuming it's an alphanumeric string)
+            int pointValue;
+            try {
+                pointValue = Integer.parseInt(pointValues.get(i));
+            } catch (NumberFormatException e) {
+                // Handle the case where the string is not a valid integer
+                pointValue = 0; // Set a default value or handle the error accordingly
+            }
+            
             askQuestion(question, options, correctAnswer, pointValue);
         }
 
@@ -111,10 +123,15 @@ public class JavaV4 {
     }
 
     private static void askQuestion(String question, String options, String correctAnswer, int pointValue) {
-        String userAnswer;
-        do {
-            userAnswer = JOptionPane.showInputDialog(question + "\n" + options + "\nYour answer (A/B/C/D): ").toUpperCase();
-        } while (!userAnswer.equals("A") && !userAnswer.equals("B") && !userAnswer.equals("C") && !userAnswer.equals("D"));
+        String userAnswer = null;
+        while (userAnswer == null || userAnswer.trim().isEmpty() || userAnswer.length() > 1) {
+            userAnswer = JOptionPane.showInputDialog(question + "\n" + options + "\nYour answer (A/B/C/D): ");
+            if (userAnswer == null) {
+                // User clicked Cancel, ask the question again
+                continue;
+            }
+            userAnswer = userAnswer.toUpperCase();
+        }
 
         if (userAnswer.equals(correctAnswer)) {
             score += pointValue;
