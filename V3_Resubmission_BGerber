@@ -1,0 +1,192 @@
+/*
+ /*
+Who wants to be a java programmer!
+Created by Jeremy, Rama, and Brandon
+COP1250C
+
+- Display a welcome message
+("Welcome to Java Quiz!")
+
+- Prompt the user to enter their name
+("Enter your name: ")
+
+- Display a greeting message with the user's name
+("Hello, " + name + "!")
+
+- Initialize the score to zero
+score = 0
+
+Create a menu loop
+menu = -1
+while menu != 2:
+    - Display the menu options
+    ("Main Menu:", ["See Rules", "Start Test", "Exit"])
+
+    - Get the user's choice
+    menu = get_user_choice()
+
+    if menu == 0:
+        - Display the rules
+        show_message("Rules of the test:\n" +
+                    "1. Answer 7 multiple-choice questions about Java.\n" +
+                    "2. Questions are related to chapters 1, 2, and 3.\n" +
+                    "3. Enjoy the quiz!")
+
+    if menu == 1:
+       - Start the quiz
+        for # 1 to 7:
+             Ask a question
+            
+          -  Check if the answer is correct
+            if answer == "A":
+                score = score + 10
+                ("Correct! You gained 10 points. Your current score: " + score)
+            else:
+                ("Incorrect. The correct answer is A. Your current score: " + score)
+
+        - Display the total score
+        "Thank you for playing, " + name + "!\nYour total score is: " + score)
+
+   - if menu == 2:
+         Say goodbye
+        ("Goodbye, " + name + "!")
+
+    else:
+         Display an error message for an invalid choice
+        ("Invalid choice. Please choose a valid option (1/2/3).")
+ 	*/
+import javax.swing.JOptionPane;
+
+public class JavaV3 {
+    // variable to store the users score
+    private static int score;
+
+    public static void main(String[] args) {
+        // welcome message using a dialog box
+        JOptionPane.showMessageDialog(null, "Welcome to Who Wants to Be a Java Programmer?", "Welcome", JOptionPane.PLAIN_MESSAGE);
+
+        // make user enter their name and store it in the name variable
+        String name = JOptionPane.showInputDialog("Please enter your name:");
+
+        // show greeting message with the users name
+        JOptionPane.showMessageDialog(null, "Hello, " + name + "!", "Introduction", JOptionPane.PLAIN_MESSAGE);
+
+        int menu; // variable to store the user's menu choice
+
+        // loop to display the main menu until the user makes the choice to exit 
+        do {
+            Object[] options = {"See Rules", "Start Test", "Exit"};
+
+            // created main menu using an option dialog and store the user's choice in 'menu'
+            do {
+                menu = JOptionPane.showOptionDialog(null, "Main Menu:", "Menu",
+                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                        null, options, options[2]);
+            } while (menu < 0 || menu > 2);
+
+            switch (menu) {
+                case 0:
+                    // the rules of the test using an information dialog
+                    JOptionPane.showMessageDialog(null, "Rules of the test:\n" +
+                            "1. You will be tested on a set of 7 multiple-choice questions relating to Java.\n" +
+                            "2. These questions relate to chapters one, two, and three.\n" +
+                            "3. Have fun!", "Rules", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case 1:
+                    score = 0; // initialize the users score to 0
+
+                    // Question 1
+                    String answer1 = JOptionPane.showInputDialog("Question 1: What does JVM stand for?\n" +
+                            "A) Java Virtual Machine\nB) Java Very Main\nC) Java Virtual Method\nD) Java Viable Memory\n" +
+                            "Your answer (A/B/C/D): ").toUpperCase();
+                    if (answer1.equals("A")) {
+                        // if the users answer is correct increase their score by 10 and display a message
+                        score += 10;
+                        JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        // if the users answer is incorrect display an error message
+                        JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is A. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+                    }
+                    // doing the same thing but for 2-7 
+                 // Question 2
+                    String answer2 = JOptionPane.showInputDialog("Question 2: What is the java source file extension?\n" +
+                            "A) .javaexe\nB) .javas\nC) .java\nD) .exe\n" +
+                            "Your answer (A/B/C/D): ").toUpperCase();
+                    if (answer2.equals("C")) {
+                        score += 10;
+                        JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is C. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    // Question 3
+                    String answer3 = JOptionPane.showInputDialog("Question 3: What are comments used for?\n" +
+                            "A) To tell the compiler what it needs to do\nB) To close a line of code\nC) To keep reminders and notes\nD) To define the scope of the class\n" +
+                            "Your answer (A/B/C/D): ").toUpperCase();
+                    if (answer3.equals("C")) {
+                        score += 10;
+                        JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is C. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    // Question 4
+                    String answer4 = JOptionPane.showInputDialog("Question 4: The else statement means what?\n" +
+                            "A) It means the boolean statement is true\nB) That your code has an error\nC) An alternative statement\nD) You have more options to choose\n" +
+                            "Your answer (A/B/C/D): ").toUpperCase();
+                    if (answer4.equals("C")) {
+                        score += 10;
+                        JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is C. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    // Question 5
+                    String answer5 = JOptionPane.showInputDialog("Question 5: Which is an example of a Logical Operator?\n" +
+                            "A) !\nB) >\nC) ||\nD) All of the above\n" +
+                            "Your answer (A/B/C/D): ").toUpperCase();
+                    if (answer5.equals("D")) {
+                        score += 10;
+                        JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is D. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    // Question 6
+                    String answer6 = JOptionPane.showInputDialog("Question 6: A loop that repeats a specific number of times is known as a ?\n" +
+                            "A) if/then loop\nB) do-while loop\nC) count-controlled loop\nD) All of the above\n" +
+                            "Your answer (A/B/C/D): ").toUpperCase();
+                    if (answer6.equals("C")) {
+                        score += 10;
+                        JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is C. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    // Question 7
+                    String answer7 = JOptionPane.showInputDialog("Question 7: To increment a number which symbol do you use?\n" +
+                            "A) ++\nB) xx\nC) --\nD) All of the above\n" +
+                            "Your answer (A/B/C/D): ").toUpperCase();
+                    if (answer7.equals("A")) {
+                        score += 10;
+                        JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is A. Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+                    }
+                    // display the total score
+                    JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!\nYour total score is: " + score, "Test Results", JOptionPane.INFORMATION_MESSAGE);
+
+                    break;
+                case 2:
+                    // display a goodbye message and exit the program
+                    JOptionPane.showMessageDialog(null, "Thank you for playing. Goodbye, " + name + "!",
+                            "Goodbye", JOptionPane.PLAIN_MESSAGE);
+                    break;
+                default:
+                    // display an error message for an invalid menu choice
+                    JOptionPane.showMessageDialog(null, "Invalid choice. Please choose a valid option (1/2/3).",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } while (menu != 2); // continue the loop until the user selects "Exit"
+    }
+}
