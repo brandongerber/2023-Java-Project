@@ -1,0 +1,190 @@
+import javax.swing.JOptionPane;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class JavaV4 {
+    private static int score;
+    private static int highScore;
+
+
+    public static void main(String[] args) {
+        createHighScoreFile();
+        highScore = readInHighScore(); // changed from "loadhighscore()"
+
+
+
+
+        JOptionPane.showMessageDialog(null, "Welcome to Who Wants to Be a Java Programmer?", "Welcome", JOptionPane.PLAIN_MESSAGE);
+        String name = JOptionPane.showInputDialog("Please enter your name:");
+
+        JOptionPane.showMessageDialog(null, "Hello, " + name + "!", "Introduction", JOptionPane.PLAIN_MESSAGE);
+
+        boolean playAgain;
+    do {
+        playAgain = false;
+
+        // Call the displayMainMenu method to get the user's choice
+        char choice = displayMainMenu();
+
+        switch (choice) {
+            case '1':
+                displayRules();
+                break;
+            case '2':
+                startTest(name);
+                break;
+            case '3':
+                JOptionPane.showMessageDialog(null, "Thank you for playing. Goodbye, " + name + "!",
+                        "Goodbye", JOptionPane.PLAIN_MESSAGE);
+                System.exit(0);
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Invalid choice. Please choose a valid option (1/2/3).",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    
+    } while (playAgain);
+}
+
+//  method to display the main menu and return the user's choice
+public static char displayMainMenu() {
+    Object[] options = {"See Rules", "Start Test", "Exit"};
+    int choice;
+    do {
+        choice = JOptionPane.showOptionDialog(null, "Main Menu:", "Menu",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, options, options[2]);
+    } while (choice < 0 || choice > 2);
+
+    // Convert the choice to char and return
+    return (char) ('1' + choice);
+}
+    
+    private static void createHighScoreFile() {
+        try {
+            FileWriter writer = new FileWriter("highscore.txt");
+            writer.write("0");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void startTest(String name) {
+        score = 0;
+
+        ArrayList<QuestionData> questions = readQuestionsFromFile("questions.txt");
+
+        for (QuestionData questionData : questions) {
+            askQuestion(questionData, name);
+        }
+
+        // Display the total score
+        JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!\nYour total score is: " + score, "Test Results", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private static void askQuestion(QuestionData questionData, String name) {
+        String userAnswer;
+        do {
+            StringBuilder optionsStr = new StringBuilder();
+            for (int i = 0; i < questionData.options.length; i++) {
+                optionsStr.append(questionData.options[i]).append("\n");
+            }
+            userAnswer = JOptionPane.showInputDialog(questionData.question + "\n" + optionsStr + "Your answer (A/B/C/D): ").toUpperCase();
+        } while (!userAnswer.equals("A") && !userAnswer.equals("B") && !userAnswer.equals("C") && !userAnswer.equals("D"));
+
+        if (userAnswer.equals(questionData.correctAnswer)) {
+            score += 10;
+            JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is " + questionData.correctAnswer + ". Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private static ArrayList<QuestionData> readQuestionsFromFile(String filename) {
+        ArrayList<QuestionData> questions = new ArrayList<>();
+        QuestionData currentQuestion = null;
+    
+        try (Scanner scanner = new Scanner(new FileReader(filename))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.startsWith("#")) {
+                    if (currentQuestion != null) {
+                        questions.add(currentQuestion);
+                    }
+                    currentQuestion = new QuestionData(line.substring(1));
+                } else if (currentQuestion != null) {
+                    // Check if the line is a correct answer (A, B, C, D)
+                    if (line.trim().matches("[A-D]")) {
+                        currentQuestion.correctAnswer = line.toUpperCase();
+                    } else {
+                        currentQuestion.addOption(line);
+                    }
+                }
+            }
+            if (currentQuestion != null) {
+                questions.add(currentQuestion);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
+        return questions;
+    }
+    
+   private static int readInHighScore() {
+    // Starts off a 0
+    int highScore = 0;
+
+    try (Scanner scanner = new Scanner(new FileReader("highscore.txt"))) {
+        if (scanner.hasNextInt()) {
+            highScore = scanner.nextInt();
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    return highScore;
+}
+//updateHighScore() method opens the "highscore.txt" 
+// writes the current high score as our user keeps playing and WINNING
+    private static void updateHighScore() {
+        try (FileWriter writer = new FileWriter("highscore.txt")) {
+            writer.write(Integer.toString(highScore));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class QuestionData {
+        String question;
+        String[] options = new String[4];
+        String correctAnswer;
+        int pointValue;
+
+        public QuestionData(String question) {
+            this.question = question;
+        }
+
+        public void addOption(String option) {
+            for (int i = 0; i < options.length; i++) {
+                if (options[i] == null) {
+                    options[i] = option;
+                    break;
+                }
+            }
+        }
+    }
+
+  // displayRules method changed
+    public static void displayRules() {
+        JOptionPane.showMessageDialog(null, "Rules of the test:\n" +
+                "1. You will be tested on a set of multiple-choice questions.\n" +
+                "2. Have fun!", "Rules", JOptionPane.INFORMATION_MESSAGE);
+    }
+}
