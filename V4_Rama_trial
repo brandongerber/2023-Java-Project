@@ -1,115 +1,126 @@
-// Import Libraries
+import java.io.*;
 import javax.swing.JOptionPane;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class JavaV4 {
-    // Decraling Variables
     private static int score;
-    private static int highScore;
 
     public static void main(String[] args) {
-        // Creating txt file so the high scores will be compared
-        try {
-            FileWriter writer = new FileWriter("highscore.txt");
-            writer.write("0");
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int highScore = readHighScore();
 
-        loadHighScore();
-
-        // Display to ask user their name
         JOptionPane.showMessageDialog(null, "Welcome to Who Wants to Be a Java Programmer?", "Welcome", JOptionPane.PLAIN_MESSAGE);
+
         String name = JOptionPane.showInputDialog("Please enter your name:");
 
         JOptionPane.showMessageDialog(null, "Hello, " + name + "!", "Introduction", JOptionPane.PLAIN_MESSAGE);
 
-        // Condtional loop based on the users choices
-        boolean playAgain;
+        int menu;
+        String[] questions;
+        String[] answerA;
+        String[] answerB;
+        String[] answerC;
+        String[] answerD;
+        String[] correctAnswers;
+
+        // Read questions from file
+        try {
+            BufferedReader questionReader = new BufferedReader(new FileReader("questions.txt"));
+            questions = new String[7];
+            answerA = new String[7];
+            answerB = new String[7];
+            answerC = new String[7];
+            answerD = new String[7];
+            correctAnswers = new String[7];
+
+            for (int i = 0; i < 7; i++) {
+                questionReader.readLine(); // Skip the question number
+                questions[i] = questionReader.readLine();
+                answerA[i] = questionReader.readLine();
+                answerB[i] = questionReader.readLine();
+                answerC[i] = questionReader.readLine();
+                answerD[i] = questionReader.readLine();
+                questionReader.readLine(); // Skip the correct answer label
+                correctAnswers[i] = questionReader.readLine(); // Read the correct answer
+            }
+            questionReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
         do {
-            playAgain = false;
-
             Object[] options = {"See Rules", "Start Test", "Exit"};
-            int choice;
-            do {
-                choice = JOptionPane.showOptionDialog(null, "Main Menu:", "Menu",
-                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-                        null, options, options[2]);
-            } while (choice < 0 || choice > 2);
 
-            switch (choice) {
+            do {
+                menu = JOptionPane.showOptionDialog(null, "Main Menu:", "Menu", JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+            } while (menu < 0 || menu > 2);
+
+            switch (menu) {
                 case 0:
-                    JOptionPane.showMessageDialog(null, "Rules of the test:\n" +
-                            "1. You will be tested on a set of multiple-choice questions.\n" +
-                            "2. Have fun!", "Rules", JOptionPane.INFORMATION_MESSAGE);
+                    showRules();
                     break;
                 case 1:
                     score = 0;
-
-                    ArrayList<QuestionData> questions = readQuestionsFromFile("questions.txt");
-
-                    for (QuestionData questionData : questions) {
-                        String userAnswer;
-                        do {
-                            StringBuilder optionsStr = new StringBuilder();
-                            for (int i = 0; i < questionData.options.length; i++) {
-                                optionsStr.append(questionData.options[i]).append("\n");
-                            }
-                            userAnswer = JOptionPane.showInputDialog(questionData.question + "\n" + optionsStr + "Your answer (A/B/C/D): ").toUpperCase();
-                        } while (!userAnswer.equals("A") && !userAnswer.equals("B") && !userAnswer.equals("C") && !userAnswer.equals("D"));
-
-                        if (userAnswer.equals(questionData.correctAnswer)) {
-                            score += 10;
-                            JOptionPane.showMessageDialog(null, "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is " + questionData.correctAnswer + ". Your current score: " + score, "Result", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-
-                    // Display the total score
-                    JOptionPane.showMessageDialog(null, "Thank you for playing, " + name + "!\nYour total score is: " + score, "Test Results", JOptionPane.INFORMATION_MESSAGE);
+                    startQuiz(name, questions, answerA, answerB, answerC, answerD, correctAnswers);
+                    updateHighScore(highScore);
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(null, "Thank you for playing. Goodbye, " + name + "!",
-                            "Goodbye", JOptionPane.PLAIN_MESSAGE);
-                    System.exit(0);
+                    JOptionPane.showMessageDialog(null, "Thank you for playing. Goodbye, " + name + "!", "Goodbye",
+                            JOptionPane.PLAIN_MESSAGE);
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Invalid choice. Please choose a valid option (1/2/3).",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Invalid choice. Please choose a valid option (1/2/3).", "Error",
+                            JOptionPane.ERROR_MESSAGE);
             }
-
-            String playAgainChoice = JOptionPane.showInputDialog("Do you want to play again? (yes/no)").toLowerCase();
-            if (playAgainChoice.equals("yes")) {
-                playAgain = true;
-            }
-            if (score > highScore) {
-                highScore = score;
-                try (FileWriter writer = new FileWriter("highscore.txt")) {
-                    writer.write(Integer.toString(highScore));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                JOptionPane.showMessageDialog(null, "Congratulations, you've set a new high score! Your score: " + score, "High Score", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Thank you for playing. Your score: " + score + "\nHigh score: " + highScore, "Test Results", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } while (playAgain);
+        } while (menu != 2);
     }
 
-    private static class QuestionData {
-        String question;
-        String[] options = new String[4];
-        String correctAnswer;
-        int pointValue;
+    private static int readHighScore() {
+        int highScore = 0;
+        try {
+            BufferedReader highScoreReader = new BufferedReader(new FileReader("highscore.txt"));
+            highScore = Integer.parseInt(highScoreReader.readLine());
+            highScoreReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return highScore;
+    }
 
-        public QuestionData(String question) {
-            this.question = question;
+    private static void showRules() {
+        JOptionPane.showMessageDialog(null, "Rules of the test:\n" + "1. You will be tested on a set of 7 multiple-choice questions relating to Java.\n"
+                        + "2. These questions relate to chapters one, two, and three.\n" + "3. Have fun!", "Rules", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private static void startQuiz(String name, String[] questions, String[] answerA, String[] answerB, String[] answerC,
+                                  String[] answerD, String[] correctAnswers) {
+        for (int i = 0; i < 7; i++) {
+            String answer = JOptionPane.showInputDialog("Question " + (i + 1) + ": " + questions[i] + "\n" +
+                    "A) " + answerA[i] + "\nB) " + answerB[i] + "\nC) " + answerC[i] + "\nD) " + answerD[i] + "\nYour answer (A/B/C/D): ").toUpperCase();
+
+            if (answer.equals(correctAnswers[i])) {
+                score += 10;
+                JOptionPane.showMessageDialog(null,
+                        "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is " + correctAnswers[i] + ". Your current score: " + score,
+                        "Result", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        JOptionPane.showMessageDialog(null,
+                "Thank you for playing, " + name + "!\nYour total score is: " + score, "Test Results", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private static void updateHighScore(int highScore) {
+        if (score > highScore) {
+            try {
+                BufferedWriter highScoreWriter = new BufferedWriter(new FileWriter("highscore.txt"));
+                highScoreWriter.write(Integer.toString(score));
+                highScoreWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
