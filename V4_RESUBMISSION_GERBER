@@ -1,0 +1,183 @@
+/*
+Who wants to be a java programmer!
+Created by Jeremy Thomas, Rama Skik, and Brandon Gerber
+COP1250C
+
+- Display a welcome message
+("Welcome to Java Quiz!")
+
+- Prompt the user to enter their name
+("Enter your name: ")
+
+- Display a greeting message with the user's name
+("Hello, " + name + "!")
+
+- highscore.txt 
+if score is higher than previous score, score is saved to file
+
+-questions.txt 
+put questions into txt file
+
+- Initialize the score to zero
+score = 0
+
+Create a menu loop
+menu = -1
+while menu != 2:
+    - Display the menu options
+    ("Main Menu:", ["See Rules", "Start Test", "Exit"])
+
+    - Get the user's choice
+    menu = get_user_choice()
+
+    if menu == 0:
+        - Display the rules
+        show_message("Rules of the test:\n" +
+                    "1. Answer 7 multiple-choice questions about Java.\n" +
+                    "2. Questions are related to chapters 1, 2, and 3.\n" +
+                    "3. Enjoy the quiz!")
+
+    if menu == 1:
+       - Start the quiz
+        for # 1 to 7:
+             Ask a question
+            
+          -  Check if the answer is correct
+            if answer == "A":
+                score = score + 10
+                ("Correct! You gained 10 points. Your current score: " + score)
+            else:
+                ("Incorrect. The correct answer is A. Your current score: " + score)
+
+        - Display the total score
+        "Thank you for playing, " + name + "!\nYour total score is: " + score)
+
+   - if menu == 2:
+         Say goodbye
+        ("Goodbye, " + name + "!")
+
+    else:
+         Display an error message for an invalid choice
+        ("Invalid choice. Please choose a valid option (1/2/3).")
+ 	*/
+import java.io.*;
+import javax.swing.JOptionPane;
+
+public class JavaV4 {
+    // variable to store the user's score
+    private static int score;
+
+    public static void main(String[] args) {
+        // Read the high score from "highscore.txt"
+        int highScore = 0;
+        try {
+            BufferedReader highScoreReader = new BufferedReader(new FileReader("highscore.txt"));
+            highScore = Integer.parseInt(highScoreReader.readLine());
+            highScoreReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // welcome message using a dialog box
+        JOptionPane.showMessageDialog(null, "Welcome to Who Wants to Be a Java Programmer?", "Welcome", JOptionPane.PLAIN_MESSAGE);
+
+        // make the user enter their name and store it in the name variable
+        String name = JOptionPane.showInputDialog("Please enter your name:");
+
+        // show greeting message with the user's name
+        JOptionPane.showMessageDialog(null, "Hello, " + name + "!", "Introduction", JOptionPane.PLAIN_MESSAGE);
+
+        int menu; // variable to store the user's menu choice
+
+        // Read and display questions from "questions.txt" outside the loop
+        String[] questions = new String[7];
+        String[] answerA = new String[7];
+        String[] answerB = new String[7];
+        String[] answerC = new String[7];
+        String[] answerD = new String[7];
+        String[] correctAnswers = new String[7];
+
+        try {
+            BufferedReader questionReader = new BufferedReader(new FileReader("questions.txt"));
+            for (int i = 0; i < 7; i++) {
+                questionReader.readLine(); // Skip the question number
+                questions[i] = questionReader.readLine();
+                answerA[i] = questionReader.readLine();
+                answerB[i] = questionReader.readLine();
+                answerC[i] = questionReader.readLine();
+                answerD[i] = questionReader.readLine();
+                correctAnswers[i] = questionReader.readLine();
+                questionReader.readLine(); // Skip the comment (point value) line
+            }
+            questionReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // loop to display the main menu until the user makes the choice to exit
+        do {
+            Object[] options = { "See Rules", "Start Test", "Exit" };
+
+            // created the main menu using an option dialog and store the user's choice in 'menu'
+            do {
+                menu = JOptionPane.showOptionDialog(null, "Main Menu:", "Menu", JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+            } while (menu < 0 || menu > 2);
+
+            switch (menu) {
+                case 0:
+                    // the rules of the test using an information dialog
+                    JOptionPane.showMessageDialog(null, "Rules of the test:\n" + "1. You will be tested on a set of 7 multiple-choice questions relating to Java.\n"
+                            + "2. These questions relate to chapters one, two, and three.\n" + "3. Have fun!", "Rules", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case 1:
+                    score = 0; // initialize the user's score to 0
+
+                    // Loop to display and handle questions
+                    for (int i = 0; i < 7; i++) {
+                        String answer = JOptionPane.showInputDialog("Question " + (i + 1) + ": " + questions[i] + "\n" +
+                                "A) " + answerA[i] + "\nB) " + answerB[i] + "\nC) " + answerC[i] + "\nD) " + answerD[i] + "\nYour answer (A/B/C/D): ").toUpperCase();
+
+                        // Determine if the user is correct/incorrect
+                        if (answer.equals(correctAnswers[i])) {
+                            // if the user's answer is correct, increase their score by the point value and display a message
+                            score += 10; // Assuming each question is worth 10 points
+                            JOptionPane.showMessageDialog(null,
+                                    "Correct! You gained 10 points. Your current score: " + score, "Result", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            // if the user's answer is incorrect, display an error message
+                            JOptionPane.showMessageDialog(null, "Incorrect. The correct answer is " + correctAnswers[i] + ". Your current score: " + score,
+                                    "Result", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+
+                    // Save the high score to "highscore.txt" if it's higher than the current high score
+                    if (score > highScore) {
+                        highScore = score;
+                        try {
+                            BufferedWriter highScoreWriter = new BufferedWriter(new FileWriter("highscore.txt"));
+                            highScoreWriter.write(Integer.toString(highScore));
+                            highScoreWriter.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    // Display the total score and the high score
+                    JOptionPane.showMessageDialog(null,
+                            "Thank you for playing, " + name + "!\nYour total score is: " + score + "\nHigh Score: " + highScore, "Test Results", JOptionPane.INFORMATION_MESSAGE);
+
+                    break;
+                case 2:
+                    // display a goodbye message and exit the program
+                    JOptionPane.showMessageDialog(null, "Thank you for playing. Goodbye, " + name + "!", "Goodbye",
+                            JOptionPane.PLAIN_MESSAGE);
+                    break;
+                default:
+                    // display an error message for an invalid menu choice
+                    JOptionPane.showMessageDialog(null, "Invalid choice. Please choose a valid option (1/2/3).", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+            }
+        } while (menu != 2); // continue the loop until the user exits
+    }
+}
