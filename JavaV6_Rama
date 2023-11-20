@@ -1,0 +1,88 @@
+/*
+Input: 
+- User inputs their name.
+- User selects options from the menu to continue the game.
+
+Processing: 
+- Read high scores from "highscore.txt" and store in highNames and highScores arrays.
+- Display the menu with options (e.g., start game, view high scores, exit).
+- If the user chooses to start the game:
+  - Load questions from a file into arrays (questionArray, answerA, answerB, answerC, answerD, correctAnswer, pointValue).
+  - Initialize user's score to 0.
+  - Present questions to the user one by one.
+  - For each correct answer, add points to the user's score.
+  - After answering all questions, calculate the final score.
+
+- If the user chooses to view high scores:
+  - Display the current high scores.
+
+- If the user beats the previous high score:
+  - Prompt the user to input their name.
+  - Update highNames and highScores arrays with the new high score.
+  - Update "highscore.txt" with the new high score.
+
+Output: 
+- Display the user's score.
+- If the user beats the previous high score, display a message congratulating them.
+- Display the current high scores.
+*/
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
+public class JavaV6 {
+	
+
+    // Declare parallel arrays
+    static String[] questionArray = new String[10];
+    static String[] answerA = new String[10];
+    static String[] answerB = new String[10];
+    static String[] answerC = new String[10];
+    static String[] answerD = new String[10];
+    static String[] correctAnswer = new String[10];
+    static int[] pointValue = new int[10];
+
+    public static void main(String[] args) {
+        loadQuestionsFromFile("questions.txt"); //load file "questions.txt"
+
+        // Rest of your code, including the game loop
+        for (int i = 0; i < questionArray.length; i++) {
+            String userAnswer = JOptionPane.showInputDialog(null, questionArray[i] + "\nA. " + answerA[i] +
+                    "\nB. " + answerB[i] + "\nC. " + answerC[i] + "\nD. " + answerD[i]);
+
+            if (userAnswer != null && userAnswer.equalsIgnoreCase(correctAnswer[i])) {
+                JOptionPane.showMessageDialog(null, "Correct! You earned " + pointValue[i] + " points.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect. The correct answer was " + correctAnswer[i]);
+            }
+        }
+    }
+
+    // Method to load questions from a file
+    public static void readQuestionsFromFile(String fileName) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            int index = 0;
+            while ((line = br.readLine()) != null && index < questionArray.length) {	
+                String[] parts = line.split(";");
+                if (parts.length == 7) {
+                    questionArray[index] = parts[0];
+                    answerA[index] = parts[1];
+                    answerB[index] = parts[2];
+                    answerC[index] = parts[3];
+                    answerD[index] = parts[4];
+                    correctAnswer[index] = parts[5];
+                    pointValue[index] = Integer.parseInt(parts[6]);
+                    index++;
+                } else {
+                    // Handle incorrect format in the file
+                    System.err.println("Invalid format in line: " + line);
+                }
+            }
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+}
