@@ -61,3 +61,19 @@ C) Loops a method
 D) All of the Above
 A
 10
+
+#9. What is a two-dimensional array?
+A) A column
+B) A two sided array
+C) An array of arrays [] []
+D) None of the Above
+C
+10
+
+#10. How many dimensions can an array be?
+A) 1
+B) 0
+C) 100
+D) Unlimited amount
+D
+10
