@@ -1,0 +1,176 @@
+// first four parts
+
+/* (3) Pseudocode
+• (2) Add 2 more sets of questions and answers. These questions
+should come from the topics in Chapter 7.
+• (2) Declare the following parallel arrays of size 10:
+Note: A constant value can be used to declare the size of the
+arrays.
+questionArray[]
+answerA[]
+answerB[]
+answerC[]
+answerD[]
+correctAnswer[]
+pointValue[]
+• (4) Modify your for loop so that the data is stored into the
+above arrays when read from the file. Update your method calls
+as necessary.
+*/
+
+//Rama, Jeremy, Brandon
+// V6 11/25/2023
+
+
+startTest(name):
+    // Declare arrays to store question data
+    questionArray = array of strings with size 10
+    answerA = array of strings with size 10
+    answerB = array of strings with size 10
+    answerC = array of strings with size 10
+    answerD = array of strings with size 10
+    correctAnswer = array of strings with size 10
+    pointValue = array of integers with size 10
+
+    
+    // Declare arrays to store high scores
+        String[] highNames = new String[3];
+        int[] highScores = new int[3];
+
+    // Read questions from a file and store in arrays
+    readQuestion("/src/questions.txt", questionArray, answerA, answerB, answerC, answerD, correctAnswer, pointValue)
+
+    // Process each question
+    for i = 0 to 9:
+        score += processQuestion(questionArray[i], answerA[i], answerB[i], answerC[i], answerD[i], correctAnswer[i])
+
+    // Display the score after all questions are processed
+    displayScore(score)
+
+readQuestion(filename, questions, ansA, ansB, ansC, ansD, correctAns, pointValues):
+    index = 0
+    try:
+        open file with filename for reading
+        while (there are lines left in the file) and (index < 10):
+            line = read a line from the file
+            if line starts with "#":
+            // Start of a new question 
+                questions[index] = substring of line from index 1
+            else if line matches "[A-Da-d]":
+                // Set correct answer
+                correctAns[index] = uppercase of line
+            else:
+                // Add option to the current question
+                switch (line):
+                    case "A":
+                        ansA[index] = read next line from the file
+                        break
+                    case "B":
+                        ansB[index] = read next line from the file
+                        break
+                    case "C":
+                        ansC[index] = read next line from the file
+                        break
+                    case "D":
+                        ansD[index] = read next line from the file
+                        break
+                    case "Points":
+                        pointValues[index] = parse next line as integer
+                        break
+                    default:
+                        // Handle unexpected data or empty lines
+                        break
+            index = index + 1
+    catch IOException:
+        handle file reading error
+        close the file 
+/*
+
+
+
+public static void startTest(String name) {
+    score = 0;
+
+    // Declare arrays to store question data
+    String[] questionArray = new String[10];
+    String[] answerA = new String[10];
+    String[] answerB = new String[10];
+    String[] answerC = new String[10];
+    String[] answerD = new String[10];
+    String[] correctAnswer = new String[10];
+    int[] pointValue = new int[10];
+
+    // Read in questions from a file and store in arrays
+    readQuestion("/src/questions.txt", questionArray, answerA, answerB, answerC, answerD, correctAnswer, pointValue);
+
+    // Process each question
+    for (int i = 0; i < questionArray.length; i++) {
+        score += processQuestion(questionArray[i], answerA[i], answerB[i], answerC[i], answerD[i], correctAnswer[i].charAt(0));
+    }
+
+    // Display the score after all questions are processed
+    displayScore(score);
+}
+
+public static void ReadInHighScores(String[] highNames, int[] highScores) {
+    int index = 0;
+    try (BufferedReader br = new BufferedReader(new FileReader("/path/to/highscores.txt"))) {
+        String line;
+        while ((line = br.readLine()) != null && index < 3) {
+            // Assuming each line in the file contains a name and a score separated by a space
+            String[] parts = line.split("\\s+");
+            if (parts.length == 2) {
+                highNames[index] = parts[0];
+                highScores[index] = Integer.parseInt(parts[1]);
+            } else {
+                // Handle unexpected data or empty lines
+                // You may want to log an error or take appropriate action
+            }
+            index++;
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+
+
+// Read questions from a file and store in arrays
+public static void readQuestion(String filename, String[] questions, String[] ansA, String[] ansB, String[] ansC, String[] ansD, String[] correctAns, int[] pointValues) {
+    int index = 0;
+    try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        String line;
+        while ((line = br.readLine()) != null && index < 10) {
+            if (line.startsWith("#")) {
+                // Start of a new question
+                questions[index] = line.substring(1);
+            } else if (line.trim().matches("[A-Da-d]")) {
+                // Set correct answer
+                correctAns[index] = line.toUpperCase();
+            } else {
+                // Add option to the current question
+                switch (line.trim()) {
+                    case "A":
+                        ansA[index] = br.readLine();
+                        break;
+                    case "B":
+                        ansB[index] = br.readLine();
+                        break;
+                    case "C":
+                        ansC[index] = br.readLine();
+                        break;
+                    case "D":
+                        ansD[index] = br.readLine();
+                        break;
+                    case "Points":
+                        pointValues[index] = Integer.parseInt(br.readLine());
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
