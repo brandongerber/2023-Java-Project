@@ -1,0 +1,234 @@
+/*
+ startTest(name):
+
+    // Declare arrays to store question data
+    questionArray = array of strings with size 10
+    answerA = array of strings with size 10
+    answerB = array of strings with size 10
+    answerC = array of strings with size 10
+    answerD = array of strings with size 10
+    correctAnswer = array of strings with size 10
+    pointValue = array of integers with size 10
+
+    // Read questions from a file and store in arrays
+    readQuestion("/src/questions.txt", questionArray, answerA, answerB, answerC, answerD, correctAnswer, pointValue)
+
+    // Process each question
+    for i = 0 to 9:
+        score += processQuestion(questionArray[i], answerA[i], answerB[i], answerC[i], answerD[i], correctAnswer[i])
+
+    // Display the score after all questions are processed
+    displayScore(score)
+
+readQuestion(filename, questions, ansA, ansB, ansC, ansD, correctAns, pointValues):
+    index = 0
+    try:
+        open file with filename for reading
+        while (there are lines left in the file) and (index < 10):
+            line = read a line from the file
+            if line starts with "#":
+                // Start of a new question
+                questions[index] = substring of line from index 1
+            else if line matches "[A-Da-d]":
+                // Set correct answer
+                correctAns[index] = uppercase of line
+            else:
+                // Add option to the current question
+                switch (line):
+                    case "A":
+                        ansA[index] = read next line from the file
+                        break
+                    case "B":
+                        ansB[index] = read next line from the file
+                        break
+                    case "C":
+                        ansC[index] = read next line from the file
+                        break
+                    case "D":
+                        ansD[index] = read next line from the file
+                        break
+                    case "Points":
+                        pointValues[index] = parse next line as integer
+                        break
+                    default:
+                        // Handle unexpected data or empty lines
+                        break
+            index = index + 1
+    catch IOException:
+        handle file reading error
+        close the file
+*/
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
+public class JavaGameV6 {
+	public static void main(String[] args) {
+	    // Provide a name for the user
+	    String userName = JOptionPane.showInputDialog("Enter your name:");
+
+	    // Call the startTest method with the user's name
+	    startTest(userName);
+	}
+	public static void startTest(String name) {
+	    int score = 0;
+
+	    // Declare arrays to store question data
+	    String[] questionArray = new String[10];
+	    String[] answerA = new String[10];
+	    String[] answerB = new String[10];
+	    String[] answerC = new String[10];
+	    String[] answerD = new String[10];
+	    String[] correctAnswer = new String[10];
+	    int[] pointValue = new int[10];
+
+	    // Read in questions from a file and store in arrays
+	    readQuestion("/src/questions.txt", questionArray, answerA, answerB, answerC, answerD, correctAnswer, pointValue);
+
+	    // Process each question
+	    for (int i = 0; i < questionArray.length; i++) {
+	        score = processQuestion(questionArray[i], answerA[i], answerB[i], answerC[i], answerD[i],
+	                correctAnswer[i].charAt(0), score, i, pointValue);
+	        }
+
+	    // Display the score after all questions are processed
+	    displayScore(score);
+	}
+
+	public static void ReadInHighScores(String[] highNames, int[] highScores) {
+	    int index = 0;
+	    try (BufferedReader br = new BufferedReader(new FileReader("/path/to/highscores.txt"))) {
+	        String line;
+	        while ((line = br.readLine()) != null && index < 3) {
+	            // Assuming each line in the file contains a name and a score separated by a space
+	            String[] parts = line.split("\\s+");
+	            if (parts.length == 2) {
+	                highNames[index] = parts[0];
+	                highScores[index] = Integer.parseInt(parts[1]);
+	            } else {
+	                // Handle unexpected data or empty lines
+	                // You may want to log an error or take appropriate action
+	            }
+	            index++;
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	// Read questions from a file and store in arrays
+	public static void readQuestion(String filename, String[] questions, String[] ansA, String[] ansB, String[] ansC, String[] ansD, String[] correctAns, int[] pointValues) {
+	    int index = 0;
+	    try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+	        String line;
+	        while ((line = br.readLine()) != null && index < 10) {
+	            if (line.startsWith("#")) {
+	                // Start of a new question
+	                questions[index] = line.substring(1);
+	            } else if (line.trim().matches("[A-Da-d]")) {
+	                // Set correct answer
+	                correctAns[index] = line.toUpperCase();
+	            } else {
+	                // Add option to the current question
+	                switch (line.trim()) {
+	                    case "A":
+	                        ansA[index] = br.readLine();
+	                        break;
+	                    case "B":
+	                        ansB[index] = br.readLine();
+	                        break;
+	                    case "C":
+	                        ansC[index] = br.readLine();
+	                        break;
+	                    case "D":
+	                        ansD[index] = br.readLine();
+	                        break;
+	                    case "Points":
+	                        pointValues[index] = Integer.parseInt(br.readLine());
+	                        break;
+	                    default:
+	                        break;
+	                }
+	            }
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	public static int processQuestion(String question, String ansA, String ansB, String ansC, String ansD, char c,
+            int score, int questionIndex, int[] pointValues) {
+        // Simulate user's answer using JOptionPane
+        String userAnswer = JOptionPane.showInputDialog(null,
+                question + "\nA. " + ansA + "\nB. " + ansB + "\nC. " + ansC + "\nD. " + ansD
+                        + "\nEnter your answer (A, B, C, or D):");
+
+        if (userAnswer != null && userAnswer.equalsIgnoreCase(String.valueOf(c))) {
+            // Replace the fixed point value with the actual point value for the current question
+            int pointValue = pointValues[questionIndex];
+            score += pointValue;
+            JOptionPane.showMessageDialog(null, "Correct! You earned " + pointValue + " points for this question.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect! The correct answer was " + c + ".");
+        }
+
+        // Return the updated score for the current question
+        return score;
+    }
+
+    public static void displayScore(int finalScore) {
+        // Display the final score using JOptionPane
+        JOptionPane.showMessageDialog(null, "Final Score: " + finalScore);
+    }
+
+    public static void ReadInHighScores1(String[] highNames, int[] highScores) {
+        int index = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader("/path/to/highscores.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null && index < 3) {
+                // Assuming each line in the file contains a name and a score separated by a space
+                String[] parts = line.split("\\s+");
+                if (parts.length == 2) {
+                    highNames[index] = parts[0];
+                    highScores[index] = Integer.parseInt(parts[1]);
+                } else {
+                    // Handle unexpected data or empty line
+                }
+                index++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void CompareScores(int userScore, String userName, String[] name, int[] score) {
+        // Compare the user's score with the high score list
+        for (int i = 0; i < score.length; i++) {
+            if (userScore > score[i]) {
+                // Shift scores and names to make room for the new high score
+                for (int j = score.length - 1; j > i; j--) {
+                    score[j] = score[j - 1];
+                    name[j] = name[j - 1];
+                }
+                // Insert the new high score and name
+                score[i] = userScore;
+                name[i] = userName;
+                break; // Exit the loop once the new high score is inserted
+            }
+        }
+    }
+
+    public static void UpdateHighScores(String[] highNames, int[] highScores) {
+        // Update the file “highscore.txt” with the scores and names in the arrays
+        try (FileWriter writer = new FileWriter("/path/to/highscores.txt")) {
+            for (int i = 0; i < highNames.length; i++) {
+                writer.write(highNames[i] + " " + highScores[i] + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
