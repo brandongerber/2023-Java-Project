@@ -1,79 +1,79 @@
 #1. What does JVM stand for?
-A) Java Virtual Machine
-B) Java Very Main
-C) Java Virtual Method
-D) Java Viable Memory
+A) A) Java Virtual Machine
+B) B) Java Very Main
+C) C) Java Virtual Method
+D) D) Java Viable Memory
 A
 10
 
 #2. What is the java source file extension?
-A) .javaexe
-B) .javas
-C) .java
-D) .exe
+A) A) .javaexe
+B) B) .javas
+C) C) .java
+D) D) .exe
 C
 10
 
 #3. What are comments used for?
-A) To tell the compiler what it needs to do
-B) To close a line of code
-C) To keep reminders and notes
-D) To define the scope of the class
+A) A) To tell the compiler what it needs to do
+B) B) To close a line of code
+C) C) To keep reminders and notes
+D) D) To define the scope of the class
 C
 10
 
 #4. The else statement means what?
-A) It means the boolean statement is true
-B) That your code has an error
-C) An alternative statement
-D) You have more options to choose
+A) A) It means the boolean statement is true
+B) B) That your code has an error
+C) C) An alternative statement
+D) D) You have more options to choose
 C
 10
 
 #5. Which is an example of a Logical Operator?
-A) !
-B) >
-C) ||
-D) All of the above
+A) A) !
+B) B) >
+C) C) ||
+D) D) All of the above
 D
 10
 
 #6. A loop that repeats a specific number of times is known as a?
-A) if/then loop
-B) do-while loop
-C) count-controlled loop
-D) All of the above
+A) A) if/then loop
+B) B) do-while loop
+C) C) count-controlled loop
+D) D) All of the above
 C
 10
 
 #7. To increment a number which symbol do you use?
-A) ++
-B) xx
-C) --
-D) All of the above
+A) A) ++
+B) B) xx
+C) C) --
+D) D) All of the above
 A
 10
 
 #8. What does return do?
-A) Returns a value from a method
-B) Prints Hello!
-C) Loops a method
-D) All of the Above
+A) A) Returns a value from a method
+B) B) Prints Hello!
+C) C) Loops a method
+D) D) All of the Above
 A
 10
 
 #9. What is a two-dimensional array?
-A) A column
-B) A two sided array
-C) An array of arrays [] []
-D) None of the Above
+A) A) A column
+B) B) A two sided array
+C) C) An array of arrays [] []
+D) D) None of the Above
 C
 10
 
-#10. How many dimensions can an array be?
-A) 1
-B) 0
-C) 100
-D) Unlimited amount
+#10 How many dimensions can an array be?
+A) A) 1
+B) B) 0
+C) C) 100
+D) D) Unlimited amount
 D
 10
