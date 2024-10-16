@@ -1,9 +1,3 @@
-Project Title:
-Who Wants to Be a Java Programmer?
-Developed by Rama Skik, Jeremy Thomas, and Brandon Gerber
-Course: COP1250C
-Date: 11/27/2023
-
 Description:
 "Who Wants to Be a Java Programmer?" is a Java-based multiple-choice quiz game designed to test knowledge of Java programming concepts. The game features 10 questions, each with four answer choices, and tracks the user's score. High scores are stored and compared with the user's performance, and the game offers options to view rules, take the test, or exit the program.
 
