@@ -29,7 +29,7 @@ Prerequisites:
 You need a Java Development Kit (JDK) installed on your system.
 Create a file called questions.txt in the src directory that contains the quiz questions and answers in the following format:
 less
-Copy code
+
 #1 What is the size of an int in Java?
 A) 8 bits
 B) 16 bits
